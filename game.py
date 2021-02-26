@@ -1,20 +1,47 @@
 # Import module  
 from tkinter import *
-import tkinter
   
 # Create object  
 root = Tk() 
-  
-# Adjust size  
-root.geometry("1000x600") 
-root.resizable(0,0)
+grassImage = PhotoImage(file="grass.png")
+grassImageHeight = grassImage.height()
+grassImageWidth = grassImage.width()  
+# Adjust size 
 
+#ARRAY2D
+array=[
+    ["w","w","W","w","w","W","w","w","W","w"],
+    ["W","0","0","0","0","0","0","0","0","w"],
+    ["W","0","0","0","E","0","0","0","0","w"],
+    ["W","0","0","w","w","w","0","0","E","w"],
+    ["W","0","0","0","0","0","0","w","w","w"],
+    ["W","0","0","0","0","0","0","0","0","w"],
+    ["W","0","0","0","0","0","0","0","0","w"],
+    ["w","w","W","w","w","W","w","w","W","w"]
+]
+
+screenHeight = grassImageHeight*len(array)
+screenWidth = grassImageWidth*len(array[0])
+print(screenWidth, screenHeight)
+
+root.geometry = (str(screenHeight)+"x"+str(screenWidth))
 # Create Canvas 
 canvas1 = Canvas( root, width = 800, height = 600) 
 canvas1.pack(fill = "both", expand = True) 
 
 
-# # #Function
+# TESTING ARRAY2D
+
+def drawGrid():
+    global array, grassImage
+    for row in range(len(array)):
+        for col in range(len(array[row])):
+            if array[row][col]=="w":
+                canvas1.create_image(grassImageWidth*col + grassImageWidth/2, grassImageHeight*row+grassImageHeight/2, image = grassImage)
+
+            
+ 
+## #Function
 
 def remove(event):
     canvas1.delete("remove")
@@ -23,7 +50,9 @@ def remove(event):
 
 
 def startNew(event):
-    canvas1.create_rectangle(0, 0, 1000, 600, fill="white", tags="remove")
+    canvas1.delete("all")
+    drawGrid()
+    # canvas1.create_rectangle(0, 0, 1000, 600, fill="white", tags="remove")
 
 
 
@@ -37,12 +66,11 @@ def quitNew(event):
 # def start():
 # canvas1.delete("bg1")
 # Add image file 
-bg = PhotoImage(file = "bg.png") 
+bg = PhotoImage(file = "bg.png")
 
 
 # Display image 
 canvas1.create_image( 0, 0, image = bg, anchor = "nw") 
-
 
 # Add Text 
 canvas1.create_text(500, 150, text = "Start game!!!", fill="white", font="Times 35 italic bold", tags="welcome")
