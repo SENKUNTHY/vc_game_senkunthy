@@ -6,17 +6,20 @@ root = Tk()
 grassImage = PhotoImage(file="grass.png")
 grassImageHeight = grassImage.height()
 grassImageWidth = grassImage.width()  
-# Adjust size 
+# ENEMY
+enemyImage=PhotoImage(file="testenemy.png")
+#PLAYER
+playerImage=PhotoImage(file="testplayer.png")
 
 #ARRAY2D
 array=[
     ["w","w","W","w","w","W","w","w","W","w"],
     ["W","0","0","0","0","0","0","0","0","w"],
     ["W","0","0","0","E","0","0","0","0","w"],
-    ["W","0","0","w","w","w","0","0","E","w"],
+    ["W","0","0","w","w","w","0","0","0","w"],
+    ["W","0","0","0","0","0","0","0","E","w"],
     ["W","0","0","0","0","0","0","w","w","w"],
-    ["W","0","0","0","0","0","0","0","0","w"],
-    ["W","0","0","0","0","0","0","0","0","w"],
+    ["W","P","0","0","0","0","0","0","0","w"],
     ["w","w","W","w","w","W","w","w","W","w"]
 ]
 
@@ -36,11 +39,14 @@ def drawGrid():
     global array, grassImage
     for row in range(len(array)):
         for col in range(len(array[row])):
-            if array[row][col]=="w":
+            if array[row][col]=="w" or array[row][col]=="W":
                 canvas1.create_image(grassImageWidth*col + grassImageWidth/2, grassImageHeight*row+grassImageHeight/2, image = grassImage)
+            if array[row][col]=="E":
+                canvas1.create_image(grassImageWidth*col + grassImageWidth/2, grassImageHeight*row+grassImageHeight/2, image = enemyImage)
+            if array[row][col]=="P":
+                canvas1.create_image(grassImageWidth*col + grassImageWidth/2, grassImageHeight*row+grassImageHeight/2, image = playerImage)
 
-            
- 
+
 ## #Function
 
 def remove(event):
